@@ -1,0 +1,42 @@
+package org.bhavneshgugnani.springboot.topic;
+
+import java.util.List;
+import org.bhavneshgugnani.springboot.topic.TopicService;
+import org.bhavneshgugnani.springboot.vo.Topic;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class TopicController {
+	@Autowired
+	private TopicService topicService;
+
+	@RequestMapping(value = { "/topics" })
+	public List<Topic> getAllTopics() {
+		return this.topicService.getAllTopics();
+	}
+
+	@RequestMapping(value = { "/topics/{id}" })
+	public Topic getTopic(@PathVariable(value = "id") String id) {
+		return this.topicService.getTopic(id);
+	}
+
+	@RequestMapping(value = { "/topics" }, method = { RequestMethod.POST })
+	public void addTopic(@RequestBody Topic topic) {
+		this.topicService.addTopic(topic);
+	}
+
+	@RequestMapping(value = { "/topics/{id}" }, method = { RequestMethod.PUT })
+	public void updateTopic(@PathVariable String id, @RequestBody Topic topic) {
+		this.topicService.updateTopic(id, topic);
+	}
+
+	@RequestMapping(value = { "/topics/{id}" }, method = { RequestMethod.DELETE })
+	public void deleteTopic(String id) {
+		this.topicService.deleteTopic(id);
+	}
+}
