@@ -1,4 +1,4 @@
-defaultTasks 'jar'
+defaultTasks 'fatjar'
 
 buildscript {
 	ext {
@@ -18,9 +18,15 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-jar {
+fatjar {
 	baseName = 'course-api-data'
 	version = '0.0.1-SNAPSHOT'
+	manifest {
+		attributes 'Main-Class' : 'org.bhavneshgugnani.CourseApiDataApplication'
+	}
+	from {
+   		 configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+ 	}
 }
 
 sourceCompatibility = 1.8
