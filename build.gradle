@@ -27,6 +27,7 @@ fatjar {
 	from {
    		 configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
  	}
+	ant.checksum file: archivePath
 }
 
 sourceCompatibility = 1.8
